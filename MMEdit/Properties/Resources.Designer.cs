@@ -22,7 +22,7 @@ namespace MMEdit.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace MMEdit.Properties {
         ///   返回此类使用的缓存的 ResourceManager 实例。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MMEdit.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace MMEdit.Properties {
         ///   重写当前线程的 CurrentUICulture 属性。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,9 +61,18 @@ namespace MMEdit.Properties {
         }
         
         /// <summary>
+        ///   查找类似 关于 的本地化字符串。
+        /// </summary>
+        public static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap clock_history {
+        public static System.Drawing.Bitmap clock_history {
             get {
                 object obj = ResourceManager.GetObject("clock_history", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -71,9 +80,18 @@ namespace MMEdit.Properties {
         }
         
         /// <summary>
+        ///   查找类似 关闭 的本地化字符串。
+        /// </summary>
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap disk {
+        public static System.Drawing.Bitmap disk {
             get {
                 object obj = ResourceManager.GetObject("disk", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -81,9 +99,27 @@ namespace MMEdit.Properties {
         }
         
         /// <summary>
+        ///   查找类似 (空) 的本地化字符串。
+        /// </summary>
+        public static string Empty {
+            get {
+                return ResourceManager.GetString("Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Error 的本地化字符串。
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap folder_open_document {
+        public static System.Drawing.Bitmap folder_open_document {
             get {
                 object obj = ResourceManager.GetObject("folder_open_document", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -93,10 +129,127 @@ namespace MMEdit.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap gear {
+        public static System.Drawing.Bitmap gear {
             get {
                 object obj = ResourceManager.GetObject("gear", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 无法从历史记录打开文件，导入程序({0})已无法找到。 的本地化字符串。
+        /// </summary>
+        public static string Msg_CouldNotFindHistoryImporter {
+            get {
+                return ResourceManager.GetString("Msg.CouldNotFindHistoryImporter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 没有找到小部件“{0}”。 的本地化字符串。
+        /// </summary>
+        public static string Msg_CouldNotFindWidget {
+            get {
+                return ResourceManager.GetString("Msg.CouldNotFindWidget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 无法从历史记录打开文件，文件“{0}”不存在。 的本地化字符串。
+        /// </summary>
+        public static string Msg_HistoryFileDoesNotExist {
+            get {
+                return ResourceManager.GetString("Msg.HistoryFileDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 “{0}”未能正确导入文件，返回值是 null。 的本地化字符串。
+        /// </summary>
+        public static string Msg_ImporterReturnsNull {
+            get {
+                return ResourceManager.GetString("Msg.ImporterReturnsNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 “{0}”与插件宿主连接时引发了异常。 的本地化字符串。
+        /// </summary>
+        public static string Msg_PluginHostConnectionException {
+            get {
+                return ResourceManager.GetString("Msg.PluginHostConnectionException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 实例化插件“{0}”时引发了异常。 的本地化字符串。
+        /// </summary>
+        public static string Msg_PluginInstantiationException {
+            get {
+                return ResourceManager.GetString("Msg.PluginInstantiationException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 无法安装插件“{0}”，已经安装 Guid 是“{1}”的插件。 的本地化字符串。
+        /// </summary>
+        public static string Msg_PluginRegistrationException_DuplicateGuid {
+            get {
+                return ResourceManager.GetString("Msg.PluginRegistrationException_DuplicateGuid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 是否保存文件“{0}”？ 的本地化字符串。
+        /// </summary>
+        public static string Msg_SaveFileOrNot {
+            get {
+                return ResourceManager.GetString("Msg.SaveFileOrNot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开 的本地化字符串。
+        /// </summary>
+        public static string Open {
+            get {
+                return ResourceManager.GetString("Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 保存 的本地化字符串。
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 选择导入程序 的本地化字符串。
+        /// </summary>
+        public static string SelectImporter {
+            get {
+                return ResourceManager.GetString("SelectImporter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 版本 的本地化字符串。
+        /// </summary>
+        public static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Warning 的本地化字符串。
+        /// </summary>
+        public static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
             }
         }
     }

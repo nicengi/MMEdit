@@ -114,13 +114,13 @@ namespace MMEdit
                         }
                         catch (Exception e)
                         {
-                            throw new PluginLoadException($"实例化插件“{type.FullName}”时引发了异常。", e);
+                            throw new PluginLoadException(string.Format(Resources.Msg_PluginInstantiationException, type.FullName), e);
                         }
 
                         if (GetPlugin(plugin.Guid) != null)
                         {
                             plugin.Dispose();
-                            throw new PluginLoadException($"无法安装插件“{plugin.GetType().FullName}”，已经安装 Guid 是“{plugin.Guid}”的插件。");
+                            throw new PluginLoadException(string.Format(Resources.Msg_PluginRegistrationException_DuplicateGuid, type.FullName, plugin.Guid));
                         }
 
                         PluginList.Add(plugin);
@@ -148,7 +148,7 @@ namespace MMEdit
                             }
                             catch (Exception e)
                             {
-                                throw new PluginLoadException($"“{type.FullName}”与插件宿主连接时引发了异常。", e);
+                                throw new PluginLoadException(string.Format(Resources.Msg_PluginHostConnectionException, type.FullName), e);
                             }
                         }
 
@@ -171,11 +171,11 @@ namespace MMEdit
                             message = targetInvocationException.InnerException.Message;
                         }
 
-                        MessageBox.Show($"{pluginloadException.Message}{(!string.IsNullOrEmpty(message) ? Environment.NewLine + Environment.NewLine : "")}{message}", "Oops!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show($"{pluginloadException.Message}{(!string.IsNullOrEmpty(message) ? Environment.NewLine + Environment.NewLine : "")}{message}", Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     catch (Exception e) when (!(e is PluginLoadException))
                     {
-                        MessageBox.Show($"{e.Message}\r\n\r\n{e.StackTrace}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show($"{e.Message}\r\n\r\n{e.StackTrace}", Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }

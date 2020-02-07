@@ -117,68 +117,99 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
-    <value>关于</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="MenuItem_Open.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 22</value>
+  </data>
+  <data name="MenuItem_Open.Text" xml:space="preserve">
+    <value>&amp;Open</value>
+  </data>
+  <data name="Separator_1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>205, 6</value>
+  </data>
+  <data name="MenuItem_Save.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 22</value>
+  </data>
+  <data name="MenuItem_Save.Text" xml:space="preserve">
+    <value>&amp;Save</value>
+  </data>
+  <data name="MenuItem_SaveAs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 22</value>
+  </data>
+  <data name="MenuItem_SaveAs.Text" xml:space="preserve">
+    <value>Save &amp;As...</value>
+  </data>
+  <data name="MenuItem_AutoSave.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 22</value>
+  </data>
+  <data name="MenuItem_AutoSave.Text" xml:space="preserve">
+    <value>Auto Sa&amp;ve</value>
+  </data>
+  <data name="Separator_2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>205, 6</value>
+  </data>
+  <data name="MenuItem_Settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 22</value>
+  </data>
+  <data name="MenuItem_Settings.Text" xml:space="preserve">
+    <value>Sett&amp;ings...</value>
+  </data>
+  <data name="Separator_3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>205, 6</value>
+  </data>
+  <data name="MenuItem_History.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 22</value>
+  </data>
+  <data name="MenuItem_History.Text" xml:space="preserve">
+    <value>&amp;History</value>
+  </data>
+  <data name="MenuItem_History_Clear.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 22</value>
+  </data>
+  <data name="MenuItem_History_Clear.Text" xml:space="preserve">
+    <value>&amp;Clear</value>
+  </data>
+  <data name="Separator_4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>205, 6</value>
+  </data>
+  <data name="MenuItem_Exit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 22</value>
+  </data>
+  <data name="MenuItem_Exit.Text" xml:space="preserve">
+    <value>&amp;Exit</value>
+  </data>
+  <data name="MenuItem_File.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 21</value>
+  </data>
+  <data name="MenuItem_File.Text" xml:space="preserve">
+    <value>&amp;File</value>
+  </data>
+  <data name="MenuItem_Edit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>42, 21</value>
+  </data>
+  <data name="MenuItem_Edit.Text" xml:space="preserve">
+    <value>&amp;Edit</value>
+  </data>
+  <data name="MenuItem_Tool.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 21</value>
+  </data>
+  <data name="MenuItem_Tool.Text" xml:space="preserve">
+    <value>&amp;Tool</value>
+  </data>
+  <data name="MenuItem_About.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 22</value>
+  </data>
+  <data name="MenuItem_About.Text" xml:space="preserve">
+    <value>&amp;About MMEdit</value>
+  </data>
+  <data name="MenuItem_Help.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 21</value>
+  </data>
+  <data name="MenuItem_Help.Text" xml:space="preserve">
+    <value>&amp;Help</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="clock_history" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images\clock-history.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Close" xml:space="preserve">
-    <value>关闭</value>
-  </data>
-  <data name="disk" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images\disk.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Empty" xml:space="preserve">
-    <value>(空)</value>
-  </data>
-  <data name="Error" xml:space="preserve">
-    <value>Error</value>
-  </data>
-  <data name="folder_open_document" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images\folder-open-document.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="gear" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images\gear.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Msg.CouldNotFindHistoryImporter" xml:space="preserve">
-    <value>无法从历史记录打开文件，导入程序({0})已无法找到。</value>
-  </data>
-  <data name="Msg.CouldNotFindWidget" xml:space="preserve">
-    <value>没有找到小部件“{0}”。</value>
-  </data>
-  <data name="Msg.HistoryFileDoesNotExist" xml:space="preserve">
-    <value>无法从历史记录打开文件，文件“{0}”不存在。</value>
-  </data>
-  <data name="Msg.ImporterReturnsNull" xml:space="preserve">
-    <value>“{0}”未能正确导入文件，返回值是 null。</value>
-  </data>
-  <data name="Msg.PluginHostConnectionException" xml:space="preserve">
-    <value>“{0}”与插件宿主连接时引发了异常。</value>
-  </data>
-  <data name="Msg.PluginInstantiationException" xml:space="preserve">
-    <value>实例化插件“{0}”时引发了异常。</value>
-  </data>
-  <data name="Msg.PluginRegistrationException_DuplicateGuid" xml:space="preserve">
-    <value>无法安装插件“{0}”，已经安装 Guid 是“{1}”的插件。</value>
-  </data>
-  <data name="Msg.SaveFileOrNot" xml:space="preserve">
-    <value>是否保存文件“{0}”？</value>
-  </data>
-  <data name="Open" xml:space="preserve">
-    <value>打开</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>保存</value>
-  </data>
-  <data name="SelectImporter" xml:space="preserve">
-    <value>选择导入程序</value>
-  </data>
-  <data name="Version" xml:space="preserve">
-    <value>版本</value>
-  </data>
-  <data name="Warning" xml:space="preserve">
-    <value>Warning</value>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
 </root>

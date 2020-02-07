@@ -101,7 +101,7 @@ namespace MMEdit
             }
             else
             {
-                selectPluginDialog.Text = "选择导入器";
+                selectPluginDialog.Text = Resources.SelectImporter;
                 selectPluginDialog.PluginList = importerList.ConvertAll<IPlugin>(p => p);
 
                 if (selectPluginDialog.ShowDialog() == DialogResult.OK)
@@ -121,13 +121,13 @@ namespace MMEdit
 
             if (importer == null)
             {
-                MessageBox.Show($"无法从历史记录打开文件，导入程序(Guid:{history.ImporterGuid})已无法找到。", "打开", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(Resources.Msg_CouldNotFindHistoryImporter, history.ImporterGuid), Resources.Open, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (!File.Exists(history.Filename))
             {
-                MessageBox.Show($"无法从历史记录打开文件，文件“{history.Filename}”不存在。", "打开", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(Resources.Msg_HistoryFileDoesNotExist, history.Filename), Resources.Open, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -141,7 +141,7 @@ namespace MMEdit
 
             try
             {
-                ObjectFX = Importer.Import(path) ?? throw new Exception($"“{Importer.Name}(Guid:{Importer.Guid})”未能正确导入文件。返回值是 null。");
+                ObjectFX = Importer.Import(path) ?? throw new Exception(string.Format(Resources.Msg_ImporterReturnsNull, Importer.Name));
             }
             catch (Exception e)
             {
@@ -149,7 +149,7 @@ namespace MMEdit
                 Importer = null;
                 ObjectFX = null;
 
-                MessageBox.Show(e.Message, "打开", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(e.Message, Resources.Open, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -160,7 +160,7 @@ namespace MMEdit
             WidgetControl widget;
             try
             {
-                widget = Host.CreateWidget(ObjectFX.WidgetID, ObjectFX) ?? new Widgets.MessageWidget($"没有找到小部件“{ObjectFX.WidgetID}”。");
+                widget = Host.CreateWidget(ObjectFX.WidgetID, ObjectFX) ?? new Widgets.MessageWidget(string.Format(Resources.Msg_CouldNotFindWidget, ObjectFX.WidgetID));
             }
             catch (Exception e)
             {
@@ -264,7 +264,7 @@ namespace MMEdit
         {
             if (!IsSaved)
             {
-                DialogResult result = MessageBox.Show($"是否保存文件“{Filename ?? "(空)"}”？", "保存", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+                DialogResult result = MessageBox.Show(string.Format(Resources.Msg_SaveFileOrNot, Filename ?? Resources.Empty), Resources.Save, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
                 switch (result)
                 {
@@ -362,8 +362,8 @@ namespace MMEdit
 
         private void MenuItem_About_Click(object sender, EventArgs e)
         {
-            string text = $"{AssemblyProduct}\n{string.Format("版本 {0}", AssemblyVersion)}\n{AssemblyCopyright}\n\n{AssemblyDescription}";
-            MessageBox.Show(text, $"关于 {AssemblyTitle}", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            string text = $"{AssemblyProduct}\n{ Resources.Version} { AssemblyVersion}\n{AssemblyCopyright}\n\n{AssemblyDescription}";
+            MessageBox.Show(text, $"{Resources.About} {AssemblyTitle}", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         #endregion
 
