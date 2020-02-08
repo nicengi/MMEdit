@@ -5,7 +5,7 @@
 <h1 align="center">MMEdit</h1>
 <p align="center">
     <a href="https://github.com/nicengi/MMEdit/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/nicengi/MMEdit/total?style=flat-square" /></a>
-    <a href="https://github.com//MMEdit"><img alt="Plugins" src="https://img.shields.io/badge/dynamic/json?color=blue&label=plug-ins&style=flat-square&query=%24.public_repos&url=https%3A%2F%2Fapi.github.com%2Fusers%2FMMEdit" /></a>
+    <a href="https://github.com/MMEdit"><img alt="Plugins" src="https://img.shields.io/badge/dynamic/json?color=blue&label=plug-ins&style=flat-square&query=%24.public_repos&url=https%3A%2F%2Fapi.github.com%2Fusers%2FMMEdit" /></a>
     <a href="https://github.com/nicengi/MMEdit/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/github/license/nicengi/MMEdit?color=39c5bb&style=flat-square" /></a>
 </p>
 
