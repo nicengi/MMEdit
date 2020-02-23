@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MMEdit.Framework", "MMEdit.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MMEdit", "MMEdit\MMEdit.csproj", "{1AC41609-718E-4E39-8B71-9917CC2FB5D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPlugin", "TestPlugin\TestPlugin.csproj", "{BB4AE308-C232-401B-80A4-44287827DD1D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{1AC41609-718E-4E39-8B71-9917CC2FB5D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AC41609-718E-4E39-8B71-9917CC2FB5D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AC41609-718E-4E39-8B71-9917CC2FB5D5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BB4AE308-C232-401B-80A4-44287827DD1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BB4AE308-C232-401B-80A4-44287827DD1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BB4AE308-C232-401B-80A4-44287827DD1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BB4AE308-C232-401B-80A4-44287827DD1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
