@@ -196,9 +196,14 @@ namespace MMEdit
             }
         }
 
-        public WidgetControl CreateWidget(string widgetID, ObjectFX obj)
+        public IWidgetControl CreateWidget(string widgetID, ObjectFX obj)
         {
             return WidgetList.Find(w => w.WidgetID == widgetID)?.CreateWidget(obj);
+        }
+
+        public T CreateWidget<T>(string widgetID, ObjectFX obj) where T : Control
+        {
+            return WidgetList.Find(w => w.WidgetID == widgetID)?.CreateWidget(obj) as T;
         }
 
         public void RegisterWidget(IWidget widget)
@@ -211,7 +216,7 @@ namespace MMEdit
                 Widgets.Add(widget);
         }
 
-        public void RegisterWidget(string widgetID, Func<ObjectFX, WidgetControl> createFunc)
+        public void RegisterWidget(string widgetID, Func<ObjectFX, IWidgetControl> createFunc)
         {
             RegisterWidget(new WidgetClass(widgetID, createFunc));
         }

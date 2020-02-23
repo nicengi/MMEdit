@@ -5,7 +5,7 @@ namespace MMEdit
     /// <summary>
     /// 提供一个用来编辑 <see cref="MMEdit.ObjectFX"/> 的控件。
     /// </summary>
-    public class WidgetControl : UserControl
+    public class WidgetControl : UserControl, IWidgetControl
     {
         #region Constructor
         /// <summary>

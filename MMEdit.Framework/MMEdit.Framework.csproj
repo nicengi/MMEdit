@@ -54,6 +54,7 @@
     <Compile Include="IMainForm.cs" />
     <Compile Include="IPlugin.cs" />
     <Compile Include="IWidget.cs" />
+    <Compile Include="IWidgetControl.cs" />
     <Compile Include="IWidgetProvider.cs" />
     <Compile Include="ObjectFX.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

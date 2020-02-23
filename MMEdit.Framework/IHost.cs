@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace MMEdit
 {
@@ -25,12 +26,20 @@ namespace MMEdit
 
         #region Methods
         /// <summary>
-        /// 创建与指定的 WidgetID 关联的 <see cref="WidgetControl"/> 类的新实例。
+        /// 创建与指定的 WidgetID 关联的 <see cref="IWidgetControl"/> 的新实例。
         /// </summary>
         /// <param name="widgetID"></param>
         /// <param name="obj"></param>
         /// <returns></returns>
-        WidgetControl CreateWidget(string widgetID, ObjectFX obj);
+        IWidgetControl CreateWidget(string widgetID, ObjectFX obj);
+
+        /// <summary>
+        /// 创建与指定的 WidgetID 关联的 <see cref="IWidgetControl"/> 的新实例，并转换为指定的类型。
+        /// </summary>
+        /// <param name="widgetID"></param>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        T CreateWidget<T>(string widgetID, ObjectFX obj) where T : Control;
 
         /// <summary>
         /// 注册一个小部件，如果已注册有相同的 WidgetID 将被替换。
@@ -38,7 +47,7 @@ namespace MMEdit
         /// <param name="widget"></param>
         void RegisterWidget(IWidget widget);
 
-        void RegisterWidget(string widgetID, Func<ObjectFX, WidgetControl> createFunc);
+        void RegisterWidget(string widgetID, Func<ObjectFX, IWidgetControl> createFunc);
 
         bool UnregisterWidget(string widgetID);
 

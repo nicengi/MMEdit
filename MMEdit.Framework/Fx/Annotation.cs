@@ -21,7 +21,7 @@ namespace MMEdit.Fx
         /// <summary>
         /// 初始化 <see cref="Annotation"/> 类的新实例。
         /// </summary>
-        public Annotation()
+        public Annotation() : base(null)
         {
             Data.Add("Type", null);
             Data.Add("Name", null);
@@ -76,19 +76,6 @@ namespace MMEdit.Fx
             {
                 Data["Value"] = value;
                 OnValueChanged();
-            }
-        }
-
-        public override string WidgetID
-        {
-            get
-            {
-                throw new Exception($"此属性在 {typeof(Annotation).FullName} 中不可用。");
-            }
-
-            set
-            {
-                throw new Exception($"此属性在 {typeof(Annotation).FullName} 中不可用。");
             }
         }
         #endregion

@@ -25,7 +25,7 @@ namespace MMEdit
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        WidgetControl CreateWidget(ObjectFX obj);
+        IWidgetControl CreateWidget(ObjectFX obj);
         #endregion
     }
 
@@ -35,17 +35,17 @@ namespace MMEdit
     public class WidgetClass : IWidget
     {
         #region Fields
-        private Func<ObjectFX, WidgetControl> createFunc;
+        private Func<ObjectFX, IWidgetControl> createFunc;
         #endregion
 
         #region Constructor
-        public WidgetClass(string widgetID, Func<ObjectFX, WidgetControl> createFunc)
+        public WidgetClass(string widgetID, Func<ObjectFX, IWidgetControl> createFunc)
         {
             this.createFunc = createFunc;
             WidgetID = widgetID;
         }
 
-        public WidgetClass(string widgetID, string name, Func<ObjectFX, WidgetControl> createFunc) : this(widgetID, createFunc)
+        public WidgetClass(string widgetID, string name, Func<ObjectFX, IWidgetControl> createFunc) : this(widgetID, createFunc)
         {
             Name = name;
         }
@@ -70,7 +70,7 @@ namespace MMEdit
         #endregion
 
         #region Methods
-        public WidgetControl CreateWidget(ObjectFX obj)
+        public IWidgetControl CreateWidget(ObjectFX obj)
         {
             return createFunc(obj);
         }

@@ -157,10 +157,10 @@ namespace MMEdit
             panelWidget.SuspendLayout();
             panelWidget.Controls.Clear();
 
-            WidgetControl widget;
+            Control widget;
             try
             {
-                widget = Host.CreateWidget(ObjectFX.WidgetID, ObjectFX) ?? new Widgets.MessageWidget(string.Format(Resources.Msg_CouldNotFindWidget, ObjectFX.WidgetID));
+                widget = Host.CreateWidget<Control>(ObjectFX.WidgetID, ObjectFX) ?? new Widgets.MessageWidget(string.Format(Resources.Msg_CouldNotFindWidget, ObjectFX.WidgetID));
             }
             catch (Exception e)
             {

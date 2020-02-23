@@ -80,11 +80,6 @@ namespace MMEdit.Fx
             {
                 return GetAnnotation("UIWidget").Value;
             }
-
-            set
-            {
-                GetAnnotation("UIWidget").Value = value;
-            }
         }
         #endregion
 
