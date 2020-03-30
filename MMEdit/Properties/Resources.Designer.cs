@@ -22,7 +22,7 @@ namespace MMEdit.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    internal class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace MMEdit.Properties {
         ///   返回此类使用的缓存的 ResourceManager 实例。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MMEdit.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace MMEdit.Properties {
         ///   重写当前线程的 CurrentUICulture 属性。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace MMEdit.Properties {
         /// <summary>
         ///   查找类似 关于 的本地化字符串。
         /// </summary>
-        public static string About {
+        internal static string About {
             get {
                 return ResourceManager.GetString("About", resourceCulture);
             }
@@ -72,7 +72,17 @@ namespace MMEdit.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        public static System.Drawing.Bitmap clock_history {
+        internal static System.Drawing.Bitmap application_home {
+            get {
+                object obj = ResourceManager.GetObject("application_home", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap clock_history {
             get {
                 object obj = ResourceManager.GetObject("clock_history", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -82,7 +92,7 @@ namespace MMEdit.Properties {
         /// <summary>
         ///   查找类似 关闭 的本地化字符串。
         /// </summary>
-        public static string Close {
+        internal static string Close {
             get {
                 return ResourceManager.GetString("Close", resourceCulture);
             }
@@ -91,7 +101,7 @@ namespace MMEdit.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        public static System.Drawing.Bitmap disk {
+        internal static System.Drawing.Bitmap disk {
             get {
                 object obj = ResourceManager.GetObject("disk", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -101,7 +111,7 @@ namespace MMEdit.Properties {
         /// <summary>
         ///   查找类似 (空) 的本地化字符串。
         /// </summary>
-        public static string Empty {
+        internal static string Empty {
             get {
                 return ResourceManager.GetString("Empty", resourceCulture);
             }
@@ -110,7 +120,7 @@ namespace MMEdit.Properties {
         /// <summary>
         ///   查找类似 Error 的本地化字符串。
         /// </summary>
-        public static string Error {
+        internal static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
             }
@@ -119,7 +129,7 @@ namespace MMEdit.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        public static System.Drawing.Bitmap folder_open_document {
+        internal static System.Drawing.Bitmap folder_open_document {
             get {
                 object obj = ResourceManager.GetObject("folder_open_document", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -129,7 +139,7 @@ namespace MMEdit.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        public static System.Drawing.Bitmap gear {
+        internal static System.Drawing.Bitmap gear {
             get {
                 object obj = ResourceManager.GetObject("gear", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -137,63 +147,101 @@ namespace MMEdit.Properties {
         }
         
         /// <summary>
-        ///   查找类似 无法从历史记录打开文件，导入程序({0})已无法找到。 的本地化字符串。
+        ///   查找类似 导入 {0} 的本地化字符串。
         /// </summary>
-        public static string Msg_CouldNotFindHistoryImporter {
+        internal static string ImportFile {
             get {
-                return ResourceManager.GetString("Msg.CouldNotFindHistoryImporter", resourceCulture);
+                return ResourceManager.GetString("ImportFile", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 没有找到小部件“{0}”。 的本地化字符串。
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        public static string Msg_CouldNotFindWidget {
+        internal static System.Drawing.Bitmap inbox {
             get {
-                return ResourceManager.GetString("Msg.CouldNotFindWidget", resourceCulture);
+                object obj = ResourceManager.GetObject("inbox", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   查找类似 无法从历史记录打开文件，文件“{0}”不存在。 的本地化字符串。
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        public static string Msg_HistoryFileDoesNotExist {
+        internal static System.Drawing.Bitmap inbox_document {
             get {
-                return ResourceManager.GetString("Msg.HistoryFileDoesNotExist", resourceCulture);
+                object obj = ResourceManager.GetObject("inbox_document", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 “{0}”无法被导出，没有找到可用的导出程序。 的本地化字符串。
+        /// </summary>
+        internal static string Msg_ExporterNotFound {
+            get {
+                return ResourceManager.GetString("Msg.ExporterNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 “{0}”文件不存在。 的本地化字符串。
+        /// </summary>
+        internal static string Msg_FileDoesNotExist {
+            get {
+                return ResourceManager.GetString("Msg.FileDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 “{0}”无法被导入，没有找到可用的导入程序。 的本地化字符串。
+        /// </summary>
+        internal static string Msg_ImporterNotFound {
+            get {
+                return ResourceManager.GetString("Msg.ImporterNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 “{0}”的导入程序已无法找到，要查找可用的导入程序吗？ 的本地化字符串。
+        /// </summary>
+        internal static string Msg_ImporterNotFoundQuestion {
+            get {
+                return ResourceManager.GetString("Msg.ImporterNotFoundQuestion", resourceCulture);
             }
         }
         
         /// <summary>
         ///   查找类似 “{0}”未能正确导入文件，返回值是 null。 的本地化字符串。
         /// </summary>
-        public static string Msg_ImporterReturnsNull {
+        internal static string Msg_ImporterReturnsNull {
             get {
                 return ResourceManager.GetString("Msg.ImporterReturnsNull", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 “{0}”与插件宿主连接时引发了异常。 的本地化字符串。
+        ///   查找类似 “{0}”与主机连接时引发了异常。 的本地化字符串。
         /// </summary>
-        public static string Msg_PluginHostConnectionException {
+        internal static string Msg_PluginHostConnectionException {
             get {
                 return ResourceManager.GetString("Msg.PluginHostConnectionException", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 实例化插件“{0}”时引发了异常。 的本地化字符串。
+        ///   查找类似 “{0}”实例化插件时引发了异常。 的本地化字符串。
         /// </summary>
-        public static string Msg_PluginInstantiationException {
+        internal static string Msg_PluginInstantiationException {
             get {
                 return ResourceManager.GetString("Msg.PluginInstantiationException", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 无法安装插件“{0}”，已经安装 Guid 是“{1}”的插件。 的本地化字符串。
+        ///   查找类似 未能安装插件“{0}”，已经安装 Guid 是“{1}”的插件。 的本地化字符串。
         /// </summary>
-        public static string Msg_PluginRegistrationException_DuplicateGuid {
+        internal static string Msg_PluginRegistrationException_DuplicateGuid {
             get {
                 return ResourceManager.GetString("Msg.PluginRegistrationException_DuplicateGuid", resourceCulture);
             }
@@ -202,16 +250,25 @@ namespace MMEdit.Properties {
         /// <summary>
         ///   查找类似 是否保存文件“{0}”？ 的本地化字符串。
         /// </summary>
-        public static string Msg_SaveFileOrNot {
+        internal static string Msg_SaveFileOrNot {
             get {
                 return ResourceManager.GetString("Msg.SaveFileOrNot", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   查找类似 没有找到小部件“{0}”。 的本地化字符串。
+        /// </summary>
+        internal static string Msg_WidgetNotFound {
+            get {
+                return ResourceManager.GetString("Msg.WidgetNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 打开 的本地化字符串。
         /// </summary>
-        public static string Open {
+        internal static string Open {
             get {
                 return ResourceManager.GetString("Open", resourceCulture);
             }
@@ -220,25 +277,61 @@ namespace MMEdit.Properties {
         /// <summary>
         ///   查找类似 保存 的本地化字符串。
         /// </summary>
-        public static string Save {
+        internal static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 选择导入程序 的本地化字符串。
+        ///   查找类似 文件扩展名 的本地化字符串。
         /// </summary>
-        public static string SelectImporter {
+        internal static string Settings_ExtensionRules {
             get {
-                return ResourceManager.GetString("SelectImporter", resourceCulture);
+                return ResourceManager.GetString("Settings.ExtensionRules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 常规 的本地化字符串。
+        /// </summary>
+        internal static string Settings_General {
+            get {
+                return ResourceManager.GetString("Settings.General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 导入和导出 的本地化字符串。
+        /// </summary>
+        internal static string Settings_ImportExport {
+            get {
+                return ResourceManager.GetString("Settings.ImportExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 首选项 的本地化字符串。
+        /// </summary>
+        internal static string Settings_Preferences {
+            get {
+                return ResourceManager.GetString("Settings.Preferences", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启动 的本地化字符串。
+        /// </summary>
+        internal static string Settings_Start {
+            get {
+                return ResourceManager.GetString("Settings.Start", resourceCulture);
             }
         }
         
         /// <summary>
         ///   查找类似 版本 的本地化字符串。
         /// </summary>
-        public static string Version {
+        internal static string Version {
             get {
                 return ResourceManager.GetString("Version", resourceCulture);
             }
@@ -247,7 +340,7 @@ namespace MMEdit.Properties {
         /// <summary>
         ///   查找类似 Warning 的本地化字符串。
         /// </summary>
-        public static string Warning {
+        internal static string Warning {
             get {
                 return ResourceManager.GetString("Warning", resourceCulture);
             }

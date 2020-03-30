@@ -3,7 +3,7 @@
 namespace MMEdit
 {
     /// <summary>
-    /// 提供文件导入程序（插件）。
+    /// 提供 <see cref="ObjectFX"/> 的导入程序。
     /// </summary>
     public interface IImportPlugin : IPlugin
     {
@@ -28,10 +28,15 @@ namespace MMEdit
         /// <summary>
         /// 确定文件可以导入。
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="path">文件路径。</param>
         /// <returns></returns>
         bool IsImportable(string path);
 
+        /// <summary>
+        /// 导入 <see cref="ObjectFX"/>。
+        /// </summary>
+        /// <param name="path">文件路径。</param>
+        /// <returns></returns>
         ObjectFX Import(string path);
         #endregion
     }

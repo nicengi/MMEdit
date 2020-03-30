@@ -3,7 +3,7 @@
 namespace MMEdit
 {
     /// <summary>
-    /// 提供 <see cref="ObjectFX"/> 导出程序（插件）。
+    /// 提供 <see cref="ObjectFX"/> 的导出程序。
     /// </summary>
     public interface IExportPlugin : IPlugin
     {
@@ -26,12 +26,17 @@ namespace MMEdit
 
         #region Methods
         /// <summary>
-        /// 确定 <see cref="ObjectFX"/> 可以导出。
+        /// 确定 <see cref="ObjectFX"/> 是可以导出。
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
         bool IsExportable(ObjectFX obj);
 
+        /// <summary>
+        /// 导出 <see cref="ObjectFX"/>。
+        /// </summary>
+        /// <param name="obj">可编辑对象。</param>
+        /// <param name="path">文件路径。</param>
         void Export(ObjectFX obj, string path);
         #endregion
     }

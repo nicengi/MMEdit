@@ -21,15 +21,23 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\MMEdit.Framework.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>embedded</DebugType>
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DebugSymbols>true</DebugSymbols>
+    <DocumentationFile>bin\Release\MMEdit.Framework.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\MMEdit\MMEdit.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -44,18 +52,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\CustomSettingsBase.cs" />
+    <Compile Include="Configuration\ExtensionRule.cs" />
+    <Compile Include="Configuration\ICustomSettings.cs" />
+    <Compile Include="Configuration\ImportConfig.cs" />
     <Compile Include="FileStatus.cs" />
-    <Compile Include="Fx\Annotation.cs" />
-    <Compile Include="Fx\ControlObject.cs" />
-    <Compile Include="HistoryItem.cs" />
+    <Compile Include="Annotation.cs" />
+    <Compile Include="Configuration\History.cs" />
     <Compile Include="IExportPlugin.cs" />
     <Compile Include="IHost.cs" />
     <Compile Include="IImportPlugin.cs" />
-    <Compile Include="IMainForm.cs" />
+    <Compile Include="INotifyStatusChanged.cs" />
     <Compile Include="IPlugin.cs" />
+    <Compile Include="IStartPlugin.cs" />
     <Compile Include="IWidget.cs" />
     <Compile Include="IWidgetControl.cs" />
-    <Compile Include="IWidgetProvider.cs" />
     <Compile Include="ObjectFX.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -66,10 +77,10 @@
     <Compile Include="WidgetControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Widgets\MessageWidget.cs">
+    <Compile Include="MessageWidget.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Widgets\MessageWidget.designer.cs">
+    <Compile Include="MessageWidget.designer.cs">
       <DependentUpon>MessageWidget.cs</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -78,12 +89,36 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Widgets\MessageWidget.resx">
+    <EmbeddedResource Include="MessageWidget.resx">
       <DependentUpon>MessageWidget.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Images\exclamation.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Images\cross-circle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Images\information.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Images\question.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Images\cross-white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Images\exclamation-circle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Images\exclamation-white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Images\information-white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Images\question-white.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

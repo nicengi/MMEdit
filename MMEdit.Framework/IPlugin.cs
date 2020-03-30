@@ -3,7 +3,7 @@
 namespace MMEdit
 {
     /// <summary>
-    /// 通用插件接口。
+    /// 表示通用插件接口。
     /// </summary>
     public interface IPlugin : IDisposable
     {
@@ -31,23 +31,35 @@ namespace MMEdit
     }
 
     /// <summary>
-    /// 提供插件的抽象基类，包含 <see cref="IHostConncet"/> 。
+    /// 定义插件的抽象基类。
     /// </summary>
-    public abstract class PluginClass : IPlugin, IHostConncet
+    public abstract class PluginBase : IPlugin, IHostConncet
     {
         #region Properties
+        /// <summary>
+        /// <inheritdoc cref="IPlugin.Guid"/>
+        /// </summary>
         public abstract Guid Guid { get; }
 
+        /// <summary>
+        /// <inheritdoc cref="IPlugin.Name"/>
+        /// </summary>
         public abstract string Name { get; }
 
+        /// <summary>
+        /// <inheritdoc cref="IPlugin.Version"/>
+        /// </summary>
         public virtual string Version
         {
             get
             {
-                return "1.0.0.0";
+                return "1.0";
             }
         }
 
+        /// <summary>
+        /// <inheritdoc cref="IPlugin.Description"/>
+        /// </summary>
         public virtual string Description
         {
             get
@@ -56,33 +68,49 @@ namespace MMEdit
             }
         }
 
-        private IHost _Host;
-        public virtual IHost Host
-        {
-            get
-            {
-                return _Host;
-            }
-
-            set
-            {
-                _Host = value;
-                Initialize(_Host);
-            }
-        }
+        /// <summary>
+        /// 获取或设置插件宿主。
+        /// </summary>
+        public IHost Host { get; protected set; }
         #endregion
 
         #region Methods
         /// <summary>
-        /// 此方法在 <see cref="Host"/> 的值被改变时被调用。
+        /// <inheritdoc cref="IHostConncet.Initialize(IHost)"/>
         /// </summary>
         /// <param name="host"></param>
-        protected virtual void Initialize(IHost host) { }
+        public virtual void Initialize(IHost host)
+        {
+            Host = host;
+        }
 
-        public virtual void Dispose()
+        #region IDisposable Support
+        /// <summary>
+        /// <inheritdoc cref="IDisposable.Dispose()"/>
+        /// </summary>
+        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        protected virtual void Dispose(bool disposing)
         {
 
         }
+
+        /// <summary>
+        /// 析构函数。
+        /// </summary>
+        ~PluginBase()
+        {
+            Dispose(false);
+        }
+
+        /// <summary>
+        /// <inheritdoc cref="IDisposable.Dispose()"/>
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
         #endregion
     }
 
@@ -95,7 +123,7 @@ namespace MMEdit
         /// <summary>
         /// 初始化 <see cref="PluginEventArgs"/> 类的新实例。
         /// </summary>
-        /// <param name="plugin"></param>
+        /// <param name="plugin">引发事件的插件。</param>
         public PluginEventArgs(IPlugin plugin)
         {
             Plugin = plugin;
@@ -103,6 +131,9 @@ namespace MMEdit
         #endregion
 
         #region Properties
+        /// <summary>
+        /// 获取引发事件的插件。
+        /// </summary>
         public IPlugin Plugin { get; }
         #endregion
     }
@@ -120,20 +151,20 @@ namespace MMEdit
         public PluginLoadException() { }
 
         /// <summary>
-        /// 初始化 <see cref="PluginLoadException"/> 类的新实例。
+        /// <inheritdoc cref="PluginLoadException()"/>
         /// </summary>
         /// <param name="message">解释异常原因的错误消息。</param>
         public PluginLoadException(string message) : base(message) { }
 
         /// <summary>
-        /// 初始化 <see cref="PluginLoadException"/> 类的新实例。
+        /// <inheritdoc cref="PluginLoadException()"/>
         /// </summary>
         /// <param name="message">解释异常原因的错误消息。</param>
         /// <param name="inner">导致当前异常的异常。</param>
         public PluginLoadException(string message, Exception inner) : base(message, inner) { }
 
         /// <summary>
-        /// 初始化 <see cref="PluginLoadException"/> 类的新实例。
+        /// <inheritdoc cref="PluginLoadException()"/>
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>

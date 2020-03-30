@@ -5,7 +5,7 @@
     <Setting Name="AutoSave" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="HistoryItemMaxCount" Type="System.Int32" Scope="User">
+    <Setting Name="HistoryMaxCount" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">15</Value>
     </Setting>
     <Setting Name="MainForm_Size" Type="System.Drawing.Size" Scope="User">
@@ -13,6 +13,9 @@
     </Setting>
     <Setting Name="MainForm_Location" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">0, 0</Value>
+    </Setting>
+    <Setting Name="StartPage" Type="System.Guid" Scope="User">
+      <Value Profile="(Default)">7925bc6c-6059-43eb-8052-af0ccfc3c970</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://github.com/nicengi/MMEdit"><img alt="MMEdit" src="./doc/Images/mmedit-logo-v1.jpg" width=64 heigth=64 /></a>
+    <a href="https://github.com/nicengi/MMEdit"><img alt="MMEdit" src="./docs/Images/MMEdit.70x70.png" width=64 heigth=64 /></a>
 </p>
 
 <h1 align="center">MMEdit</h1>
@@ -13,4 +13,4 @@ MMEdit Framework，用于将 [MikuMikuEffect](https://bowlroll.net/file/35012) �
 
 ## Screenshots
 
-![Sample1](./doc/Screenshots/Sample1.png)
+![Sample1](./docs/Screenshots/Sample1.png)

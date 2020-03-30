@@ -121,6 +121,9 @@
     <value>关于</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="application_home" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\application-home.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="clock_history" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\clock-history.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -142,29 +145,44 @@
   <data name="gear" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\gear.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Msg.CouldNotFindHistoryImporter" xml:space="preserve">
-    <value>无法从历史记录打开文件，导入程序({0})已无法找到。</value>
+  <data name="ImportFile" xml:space="preserve">
+    <value>导入 {0}</value>
   </data>
-  <data name="Msg.CouldNotFindWidget" xml:space="preserve">
-    <value>没有找到小部件“{0}”。</value>
+  <data name="inbox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\inbox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Msg.HistoryFileDoesNotExist" xml:space="preserve">
-    <value>无法从历史记录打开文件，文件“{0}”不存在。</value>
+  <data name="inbox_document" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\inbox-document.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Msg.ExporterNotFound" xml:space="preserve">
+    <value>“{0}”无法被导出，没有找到可用的导出程序。</value>
+  </data>
+  <data name="Msg.FileDoesNotExist" xml:space="preserve">
+    <value>“{0}”文件不存在。</value>
+  </data>
+  <data name="Msg.ImporterNotFound" xml:space="preserve">
+    <value>“{0}”无法被导入，没有找到可用的导入程序。</value>
+  </data>
+  <data name="Msg.ImporterNotFoundQuestion" xml:space="preserve">
+    <value>“{0}”的导入程序已无法找到，要查找可用的导入程序吗？</value>
   </data>
   <data name="Msg.ImporterReturnsNull" xml:space="preserve">
     <value>“{0}”未能正确导入文件，返回值是 null。</value>
   </data>
   <data name="Msg.PluginHostConnectionException" xml:space="preserve">
-    <value>“{0}”与插件宿主连接时引发了异常。</value>
+    <value>“{0}”与主机连接时引发了异常。</value>
   </data>
   <data name="Msg.PluginInstantiationException" xml:space="preserve">
-    <value>实例化插件“{0}”时引发了异常。</value>
+    <value>“{0}”实例化插件时引发了异常。</value>
   </data>
   <data name="Msg.PluginRegistrationException_DuplicateGuid" xml:space="preserve">
-    <value>无法安装插件“{0}”，已经安装 Guid 是“{1}”的插件。</value>
+    <value>未能安装插件“{0}”，已经安装 Guid 是“{1}”的插件。</value>
   </data>
   <data name="Msg.SaveFileOrNot" xml:space="preserve">
     <value>是否保存文件“{0}”？</value>
+  </data>
+  <data name="Msg.WidgetNotFound" xml:space="preserve">
+    <value>没有找到小部件“{0}”。</value>
   </data>
   <data name="Open" xml:space="preserve">
     <value>打开</value>
@@ -172,8 +190,20 @@
   <data name="Save" xml:space="preserve">
     <value>保存</value>
   </data>
-  <data name="SelectImporter" xml:space="preserve">
-    <value>选择导入程序</value>
+  <data name="Settings.ExtensionRules" xml:space="preserve">
+    <value>文件扩展名</value>
+  </data>
+  <data name="Settings.General" xml:space="preserve">
+    <value>常规</value>
+  </data>
+  <data name="Settings.ImportExport" xml:space="preserve">
+    <value>导入和导出</value>
+  </data>
+  <data name="Settings.Preferences" xml:space="preserve">
+    <value>首选项</value>
+  </data>
+  <data name="Settings.Start" xml:space="preserve">
+    <value>启动</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>版本</value>

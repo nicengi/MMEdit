@@ -38,12 +38,12 @@ namespace MMEdit.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("15")]
-        public int HistoryItemMaxCount {
+        public int HistoryMaxCount {
             get {
-                return ((int)(this["HistoryItemMaxCount"]));
+                return ((int)(this["HistoryMaxCount"]));
             }
             set {
-                this["HistoryItemMaxCount"] = value;
+                this["HistoryMaxCount"] = value;
             }
         }
         
@@ -68,6 +68,18 @@ namespace MMEdit.Properties {
             }
             set {
                 this["MainForm_Location"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("7925bc6c-6059-43eb-8052-af0ccfc3c970")]
+        public global::System.Guid StartPage {
+            get {
+                return ((global::System.Guid)(this["StartPage"]));
+            }
+            set {
+                this["StartPage"] = value;
             }
         }
     }

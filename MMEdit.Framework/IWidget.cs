@@ -3,25 +3,25 @@
 namespace MMEdit
 {
     /// <summary>
-    /// 提供小部件。
+    /// 表示小部件信息。
     /// </summary>
     public interface IWidget
     {
         #region Properties
         /// <summary>
-        /// 获取小部件名称。
+        /// 获取小部件的名称。
         /// </summary>
         string Name { get; }
 
         /// <summary>
-        /// 获取小部件 ID。
+        /// 获取小部件的 ID。
         /// </summary>
         string WidgetID { get; }
         #endregion
 
         #region Methods
         /// <summary>
-        /// 使用指定的 <see cref="ObjectFX"/> 创建小部件。
+        /// 为可编辑对象创建 <see cref="IWidgetControl"/> 的新实例。
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -30,31 +30,48 @@ namespace MMEdit
     }
 
     /// <summary>
-    /// 提供小部件注册类。
+    /// 提供小部件的注册类，此类不可被继承。
     /// </summary>
-    public class WidgetClass : IWidget
+    public sealed class WidgetClass : IWidget
     {
         #region Fields
-        private Func<ObjectFX, IWidgetControl> createFunc;
+        private string _Name;
+        private Func<ObjectFX, IWidgetControl> createWidget;
         #endregion
 
         #region Constructor
-        public WidgetClass(string widgetID, Func<ObjectFX, IWidgetControl> createFunc)
+        /// <summary>
+        /// 初始化 <see cref="WidgetClass"/> 类的新实例。
+        /// </summary>
+        /// <param name="widgetID">小部件的 ID。</param>
+        /// <param name="createWidget">创建小部件方法。</param>
+        public WidgetClass(string widgetID, Func<ObjectFX, IWidgetControl> createWidget)
         {
-            this.createFunc = createFunc;
+            this.createWidget = createWidget;
             WidgetID = widgetID;
         }
 
-        public WidgetClass(string widgetID, string name, Func<ObjectFX, IWidgetControl> createFunc) : this(widgetID, createFunc)
+        /// <summary>
+        /// <inheritdoc cref="WidgetClass(string, Func{ObjectFX, IWidgetControl})"/>
+        /// </summary>
+        /// <param name="name">小部件的名称。</param>
+        /// <param name="widgetID">小部件的 ID。</param>
+        /// <param name="createWidget">创建小部件方法。</param>
+        public WidgetClass(string name, string widgetID, Func<ObjectFX, IWidgetControl> createWidget) : this(widgetID, createWidget)
         {
             Name = name;
         }
         #endregion
 
         #region Properties
+        /// <summary>
+        /// <inheritdoc cref="IWidget.WidgetID"/>
+        /// </summary>
         public string WidgetID { get; }
 
-        private string _Name;
+        /// <summary>
+        /// <inheritdoc cref="IWidget.Name"/>
+        /// </summary>
         public string Name
         {
             get
@@ -70,9 +87,14 @@ namespace MMEdit
         #endregion
 
         #region Methods
+        /// <summary>
+        /// <inheritdoc cref="IWidget.CreateWidget(ObjectFX)"/>
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public IWidgetControl CreateWidget(ObjectFX obj)
         {
-            return createFunc(obj);
+            return createWidget(obj);
         }
         #endregion
     }

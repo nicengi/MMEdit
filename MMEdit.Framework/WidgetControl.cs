@@ -3,7 +3,7 @@
 namespace MMEdit
 {
     /// <summary>
-    /// 提供一个用来编辑 <see cref="MMEdit.ObjectFX"/> 的控件。
+    /// 小部件控件的基类，实现 <see cref="IWidgetControl"/>。
     /// </summary>
     public class WidgetControl : UserControl, IWidgetControl
     {
@@ -18,7 +18,7 @@ namespace MMEdit
 
         #region Properties
         /// <summary>
-        /// 获取或设置 <see cref="MMEdit.ObjectFX"/>。
+        /// <inheritdoc cref="IWidgetControl.ObjectFX"/>
         /// </summary>
         public virtual ObjectFX ObjectFX { get; set; }
         #endregion

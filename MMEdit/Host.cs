@@ -1,49 +1,96 @@
-﻿using MMEdit.Properties;
+﻿using MMEdit.Configuration;
+using MMEdit.Forms;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
 namespace MMEdit
 {
-    internal class Host : IHost, IDisposable
+    internal class Host : ApplicationContext, IHost, IDisposable
     {
         #region Fields
-        private List<IPlugin> PluginList = new List<IPlugin>();
-        private List<IWidget> WidgetList = new List<IWidget>();
+        public readonly bool _SingletonMode;
         #endregion
 
         #region Constructor
-        public Host(IMainForm mainForm)
+        public Host() : base()
         {
-            MainForm = mainForm;
+            _SingletonMode = true;
+            Plugins = new List<IPlugin>();
+            Widgets = new List<IWidget>();
+            Settings = new List<ICustomSettings>();
             ImportPlugins = new List<IImportPlugin>();
             ExportPlugins = new List<IExportPlugin>();
+            StartPlugins = new List<IStartPlugin>();
 
             try
             {
-                Histories = Util.Deserialize<List<HistoryItem>>(HistoryItem.HistoryCachePath);
+                Histories = Util.Deserialize<List<History>>(History.HistoryCachePath);
             }
             catch (Exception)
             {
-                Histories = new List<HistoryItem>();
+                Histories = new List<History>();
+            }
+
+            try
+            {
+                ImportConfig = Util.XmlDeserialize<ImportConfig>(ImportConfig.ImageConfigPath);
+            }
+            catch (Exception)
+            {
+                ImportConfig = new ImportConfig();
+            }
+
+            ThreadExit += (s, e) =>
+            {
+                Properties.Settings.Default.Save();
+                Util.Serialize(History.HistoryCachePath, Histories);
+            };
+            //RegisterSettings(new PreferencesSettings(this));
+            LoadPlugins();
+            MainForm = new MainForm(this);
+#if DEBUG
+            foreach (var item in Plugins)
+            {
+                Console.WriteLine("--------------------------------------");
+                Console.WriteLine($"Name: {item.Name}");
+                Console.WriteLine($"Version: {item.Version}");
+                Console.WriteLine($"Guid: {item.Guid}");
+                Console.WriteLine($"Description: {item.Description}");
+                Console.WriteLine($"DataPath:{GetPluginDataPath(item)}");
+            }
+#endif
+        }
+
+        public Host(string[] args) : this()
+        {
+            if (args != null && args.Length >= 1 && File.Exists(args[0]))
+            {
+                OpenEdit(args[0]);
             }
         }
         #endregion
 
         #region Properties
-        public IList<IPlugin> Plugins => PluginList;
-
-        public IList<IWidget> Widgets => WidgetList;
-
+        public List<IPlugin> Plugins { get; }
+        public List<IWidget> Widgets { get; }
+        public List<ICustomSettings> Settings { get; }
+        public List<History> Histories { get; }
         public List<IImportPlugin> ImportPlugins { get; }
-
         public List<IExportPlugin> ExportPlugins { get; }
+        public List<IStartPlugin> StartPlugins { get; }
+        public ImportConfig ImportConfig { get; }
 
-        public IMainForm MainForm { get; }
-
-        public List<HistoryItem> Histories { get; }
+        IReadOnlyList<IPlugin> IHost.Plugins => Plugins.AsReadOnly();
+        IReadOnlyList<IImportPlugin> IHost.ImportPlugins => ImportPlugins.AsReadOnly();
+        IReadOnlyList<IExportPlugin> IHost.ExportPlugins => ExportPlugins.AsReadOnly();
+        IReadOnlyList<IStartPlugin> IHost.StartPlugins => StartPlugins.AsReadOnly();
+        IReadOnlyList<IWidget> IHost.Widgets => Widgets.AsReadOnly();
+        IReadOnlyList<ICustomSettings> IHost.Settings => Settings.AsReadOnly();
+        IList<History> IHost.Histories => Histories;
         #endregion
 
         #region Events
@@ -52,24 +99,12 @@ namespace MMEdit
         {
             PluginLoaded?.Invoke(this, e);
         }
-
-        public event EventHandler<PluginEventArgs> PluginUnLoading;
-        protected virtual void OnPluginUnLoading(PluginEventArgs e)
-        {
-            PluginUnLoading?.Invoke(this, e);
-        }
-
-        public event EventHandler<FileStatusEventArgs> FileStatusChanged;
-        public virtual void OnFileStatusChanged(FileStatusEventArgs e)
-        {
-            FileStatusChanged?.Invoke(this, e);
-        }
         #endregion
 
         #region Methods
         public IPlugin GetPlugin(Guid guid)
         {
-            return PluginList.Find(plugin => plugin.Guid == guid);
+            return Plugins.Find(plugin => plugin.Guid == guid);
         }
 
         public IPlugin GetPlugin(string guid)
@@ -79,17 +114,12 @@ namespace MMEdit
 
         public T GetPlugin<T>(Guid guid) where T : IPlugin
         {
-            return (T)PluginList.Find(plugin => plugin.Guid == guid);
+            return (T)Plugins.Find(plugin => plugin.Guid == guid);
         }
 
         public T GetPlugin<T>(string guid) where T : IPlugin
         {
             return GetPlugin<T>(new Guid(guid));
-        }
-
-        public IPlugin GetPlugin(int index)
-        {
-            return PluginList[index];
         }
 
         public string GetPluginDataPath(IPlugin plugin)
@@ -100,13 +130,13 @@ namespace MMEdit
         public void LoadPlugin(string path)
         {
             Assembly assembly = Assembly.LoadFrom(path);
-
-            foreach (Type type in assembly.GetTypes())
+            try
             {
-                if (type.IsPublic && type.IsClass && !type.IsAbstract && type.GetInterface(typeof(IPlugin).FullName) != null)
+                foreach (Type type in assembly.GetTypes())
                 {
-                    try
+                    if (type.IsPublic && type.IsClass && !type.IsAbstract && type.GetInterface(typeof(IPlugin).FullName) != null)
                     {
+
                         IPlugin plugin;
                         try
                         {
@@ -114,76 +144,88 @@ namespace MMEdit
                         }
                         catch (Exception e)
                         {
-                            throw new PluginLoadException(string.Format(Resources.Msg_PluginInstantiationException, type.FullName), e);
+                            throw new PluginLoadException(string.Format(Properties.Resources.Msg_PluginInstantiationException, type.FullName), e);
                         }
 
                         if (GetPlugin(plugin.Guid) != null)
                         {
                             plugin.Dispose();
-                            throw new PluginLoadException(string.Format(Resources.Msg_PluginRegistrationException_DuplicateGuid, type.FullName, plugin.Guid));
+                            throw new PluginLoadException(string.Format(Properties.Resources.Msg_PluginRegistrationException_DuplicateGuid, type.FullName, plugin.Guid));
                         }
 
-                        PluginList.Add(plugin);
+                        Plugins.Add(plugin);
 
-                        if (plugin is IImportPlugin)
+                        if (plugin is IImportPlugin importPlugin)
                         {
-                            ImportPlugins.Add(plugin as IImportPlugin);
+                            ImportPlugins.Add(importPlugin);
                         }
-                        if (plugin is IExportPlugin)
+                        if (plugin is IExportPlugin exportPlugin)
                         {
-                            ExportPlugins.Add(plugin as IExportPlugin);
+                            ExportPlugins.Add(exportPlugin);
                         }
-                        if (plugin is IWidgetProvider provider)
+                        if (plugin is IStartPlugin startPlugin)
                         {
-                            foreach (var widget in provider.GetWidgets())
-                            {
-                                RegisterWidget(widget);
-                            }
+                            StartPlugins.Add(startPlugin);
                         }
                         if (plugin is IHostConncet hc)
                         {
                             try
                             {
-                                hc.Host = this;
+                                hc.Initialize(this);
                             }
                             catch (Exception e)
                             {
-                                throw new PluginLoadException(string.Format(Resources.Msg_PluginHostConnectionException, type.FullName), e);
+                                throw new PluginLoadException(string.Format(Properties.Resources.Msg_PluginHostConnectionException, type.FullName), e);
                             }
                         }
 
                         OnPluginLoaded(new PluginEventArgs(plugin));
                     }
-                    catch (PluginLoadException pluginloadException)
-                    {
-                        string message = pluginloadException.InnerException?.Message;
+                }
+            }
+            catch (PluginLoadException pluginloadException)
+            {
+                string message = pluginloadException.Message + (string.IsNullOrEmpty(pluginloadException.InnerException?.Message) ? "" : Environment.NewLine + Environment.NewLine) + pluginloadException.InnerException?.Message;
+                MessageBox.Show(message, getAssemblyTitle(assembly), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (ReflectionTypeLoadException reflectionTypeLoadException)
+            {
+                string message = reflectionTypeLoadException.Message + Environment.NewLine + Environment.NewLine + "LoaderExceptions:" + Environment.NewLine;
 
-                        if (pluginloadException.InnerException is ReflectionTypeLoadException reflectionTypeLoadException)
-                        {
-                            message = null;
-                            foreach (Exception loaderException in reflectionTypeLoadException.LoaderExceptions)
-                            {
-                                message += loaderException.Message + Environment.NewLine;
-                            }
-                        }
-                        else if (pluginloadException.InnerException is TargetInvocationException targetInvocationException)
-                        {
-                            message = targetInvocationException.InnerException.Message;
-                        }
+                foreach (Exception loaderException in reflectionTypeLoadException.LoaderExceptions)
+                {
+                    message += loaderException.Message + Environment.NewLine;
+                }
+                MessageBox.Show(message, getAssemblyTitle(assembly), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (TargetInvocationException targetInvocationException)
+            {
+                MessageBox.Show(targetInvocationException.InnerException.Message, getAssemblyTitle(assembly), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (Exception e)
+            {
+                string message = e.Message + (string.IsNullOrEmpty(e.StackTrace) ? "" : Environment.NewLine + Environment.NewLine) + e.StackTrace;
+                MessageBox.Show(message, Properties.Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-                        MessageBox.Show($"{pluginloadException.Message}{(!string.IsNullOrEmpty(message) ? Environment.NewLine + Environment.NewLine : "")}{message}", Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    catch (Exception e) when (!(e is PluginLoadException))
+            string getAssemblyTitle(Assembly _assembly)
+            {
+                object[] attributes = _assembly.GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+                if (attributes.Length > 0)
+                {
+                    AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
+                    if (titleAttribute.Title != "")
                     {
-                        MessageBox.Show($"{e.Message}\r\n\r\n{e.StackTrace}", Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return titleAttribute.Title;
                     }
                 }
+                return Path.GetFileNameWithoutExtension(_assembly.CodeBase);
             }
         }
 
-        public void LoadPlugins()
+        protected void LoadPlugins()
         {
-            string pluginPath = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Plugins");
+            string pluginPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Plugins");
 
             if (Directory.Exists(pluginPath))
             {
@@ -196,24 +238,43 @@ namespace MMEdit
             }
         }
 
+
+        public IWidgetControl CreateWidget(ObjectFX obj)
+        {
+            return CreateWidget(obj.WidgetID, obj);
+        }
+
+        public T CreateWidget<T>(ObjectFX obj) where T : Control
+        {
+            return CreateWidget<T>(obj.WidgetID, obj);
+        }
+
         public IWidgetControl CreateWidget(string widgetID, ObjectFX obj)
         {
-            return WidgetList.Find(w => w.WidgetID == widgetID)?.CreateWidget(obj);
+            return Widgets.Find(w => w.WidgetID == widgetID)?.CreateWidget(obj);
         }
 
         public T CreateWidget<T>(string widgetID, ObjectFX obj) where T : Control
         {
-            return WidgetList.Find(w => w.WidgetID == widgetID)?.CreateWidget(obj) as T;
+            return Widgets.Find(w => w.WidgetID == widgetID)?.CreateWidget(obj) as T;
         }
 
         public void RegisterWidget(IWidget widget)
         {
-            int index = WidgetList.FindIndex(w => w.WidgetID == widget.WidgetID);
+            int index = Widgets.FindIndex(w => w.WidgetID == widget.WidgetID);
 
             if (index != -1)
-                WidgetList[index] = widget;
+                Widgets[index] = widget;
             else
                 Widgets.Add(widget);
+        }
+
+        public void RegisterWidgets(IWidget[] widgets)
+        {
+            foreach (IWidget widget in widgets)
+            {
+                RegisterWidget(widget);
+            }
         }
 
         public void RegisterWidget(string widgetID, Func<ObjectFX, IWidgetControl> createFunc)
@@ -221,63 +282,110 @@ namespace MMEdit
             RegisterWidget(new WidgetClass(widgetID, createFunc));
         }
 
-        public bool UnLoadPlugin(IPlugin plugin)
+        public void RegisterSettings(ICustomSettings settings)
         {
-            OnPluginUnLoading(new PluginEventArgs(plugin));
-
-            ImportPlugins.Remove(ImportPlugins.Find(p => p.Guid == plugin.Guid));
-            ExportPlugins.Remove(ExportPlugins.Find(p => p.Guid == plugin.Guid));
-
-            if (plugin is IWidgetProvider provider)
-            {
-                foreach (var widget in provider.GetWidgets())
-                {
-                    UnregisterWidget(widget.WidgetID);
-                }
-            }
-
-            if (PluginList.Remove(plugin))
-            {
-                plugin.Dispose();
-                return true;
-            }
-            return false;
+            Settings.Add(settings);
         }
 
-        public bool UnregisterWidget(string widgetID)
+        public void InsertHistory(History history, int index = 0)
         {
-            IWidget widget = WidgetList.Find(w => w.WidgetID == widgetID);
-            return WidgetList.Remove(widget);
-        }
+            Histories.Remove(Histories.Find(h => h.FullName == history.FullName));
+            Histories.Insert(index, history);
 
-        /// <summary>
-        /// 将 <see cref="HistoryItem"/> 插入到历史项目列表的指定索引处。
-        /// </summary>
-        /// <param name="item"></param>
-        /// <param name="index"></param>
-        public void InsertHistoryItem(HistoryItem item, int index = 0)
-        {
-            Histories.Remove(Histories.Find(h => h.Filename == item.Filename));
-            Histories.Insert(index, item);
-
-            if (Histories.Count > Settings.Default.HistoryItemMaxCount)
+            if (Histories.Count > Properties.Settings.Default.HistoryMaxCount)
             {
                 Histories.RemoveAt(Histories.Count - 1);
             }
         }
 
-        public void SerializeHistories()
+        protected override void Dispose(bool disposing)
         {
-            Util.Serialize(HistoryItem.HistoryCachePath, Histories);
+            if (disposing)
+            {
+
+            }
+            foreach (IPlugin plugin in Plugins)
+            {
+                plugin.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
-        public void Dispose()
+        public void OpenEdit(string fileName, bool applyRules = true)
         {
-            List<IPlugin> pluginList = new List<IPlugin>(PluginList);
-
-            foreach (IPlugin plugin in pluginList)
+            if (applyRules)
             {
-                UnLoadPlugin(plugin);
+                ExtensionRule rule = ImportConfig.ExtensionRules.Find(r => r.Extension == Path.GetExtension(fileName));
+                if (rule != null && GetPlugin(rule.ImporterGuid) is IImportPlugin importer)
+                {
+                    OpenEdit(importer, fileName);
+                    return;
+                }
+            }
+
+            List<IImportPlugin> importerList = ImportPlugins.FindAll(p => p.IsImportable(fileName));
+            if (importerList.Count > 0)
+            {
+                if (importerList.Count == 1)
+                {
+                    OpenEdit(importerList[0], fileName);
+                }
+                else if (importerList.Count > 1)
+                {
+                    SelectPluginDialog selectPluginDialog = new SelectPluginDialog
+                    {
+                        Text = string.Format(Properties.Resources.ImportFile, Path.GetFileName(fileName)),
+                        PluginList = importerList.ConvertAll<IPlugin>(p => p),
+                    };
+
+                    if (selectPluginDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        OpenEdit((IImportPlugin)selectPluginDialog.SelectedPlugin, fileName);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show(string.Format(Properties.Resources.Msg_ImporterNotFound, fileName), Properties.Resources.Open, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        public void OpenEdit(History history)
+        {
+            if (history == null)
+                throw new ArgumentNullException(nameof(history));
+
+            IImportPlugin importer = GetPlugin(history.ImporterGuid) as IImportPlugin;
+            if (importer == null)
+            {
+                if (MessageBox.Show(string.Format(Properties.Resources.Msg_ImporterNotFoundQuestion, history.FullName),
+                    Properties.Resources.Open, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    OpenEdit(history.FullName, false);
+                }
+                return;
+            }
+            OpenEdit(importer, history.FullName);
+        }
+
+        public void OpenEdit(IImportPlugin importer, string fileName)
+        {
+            if (!File.Exists(fileName))
+            {
+                MessageBox.Show(string.Format(Properties.Resources.Msg_FileDoesNotExist, fileName), Properties.Resources.Open, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            try
+            {
+                ObjectEdit edit = new ObjectEdit(importer, fileName);
+                if (_SingletonMode)
+                    ((MainForm)MainForm).ActivateEdit(edit);
+                InsertHistory(new History(edit.FileName, edit.Importer.Guid, edit.Importer.Image?.GetThumbnail(16, 16), DateTime.Now));
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, Properties.Resources.Open, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         #endregion
